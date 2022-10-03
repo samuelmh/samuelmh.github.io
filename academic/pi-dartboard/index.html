@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Samuel M.H. - Calculating &pi;  with a dartboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Samuel M.H.">
+
+  <!-- Le styles -->
+  <link href="/utils/templates/files/bootstrap-3.3.6/css/theme_flatly_bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+    body,html{
+            height:100%;
+    }
+    .container{
+        min-height:85%;
+    }
+  </style>
+  <link rel="icon" type="image/png" href="/utils/templates/files/favicon-icon.png">
+   
+</head>
+
+
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand">Samuel M.H.</span>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li ><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+          <li><a href="http://blog.samuelmh.com"><span class="glyphicon glyphicon-pencil"></span> Blog</a></li>
+          <li><a href="/projects"><span class="glyphicon glyphicon-heart"></span> Projects</a></li>
+          <li><a href="/communication"><img src="/utils/templates/files/glyphicons-640-group-chat.png"></span> Communication</a></li>
+          <li><a href="/academic"><img src="/utils/templates/files/glyphicons-501-education.png"></span> Academic</a></li>
+          <li ><a href="/contact"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    
+<div class="page-header">
+    <h1>Calculating &pi;  with a dartboard</h1>
+    <p class="lead">Finding Pi randomly.</p>
+</div>
+
+<h2>The idea</h2>
+<p>Imagine you want to find the ratio between the length of a circunference and its diameter. That's the &pi; (Pi) number. There are several ways to calculate it, but one of my favourite methods is the following one because it's very easy o understand and involves randomness.</p>
+
+<p>Imagine you have a dartboard which actually are circular on a wall (at least where I live are rectangular). Now <strong>throw darts randomly</strong> to the wall. Some darts will hit the dartboard and others will hit the wall. What it's sure is we are going to hit something P(hit_something)=1 </p>
+
+<p>OK! But where's &pi;?</p>
+
+<p>P(hit_something) = 1 = P(hit_dartboard)+P(hit_wall)</p>
+<p>Strange? It's a problem of areas! The bigger the dartboard is, the easier to hit. So P(hit_dartboard) depends on how big is the dartboard and how small is the wall (a ratio).</p>
+
+<p>OK but where is Pi? The key is the dartboard is circular.</p>
+
+<h2>The maths</h2>
+<p>Area of the dartboard. A(dartboard) = radius^2*&pi;</p>
+<p>Area of the wall. A(wall) = width*height</p>
+
+<p>So P(hit_dartboard) = A(dartboard)/A(wall) = (radius^2*&pi;)/(width*height).<p>
+
+<p>Solving <strong>&pi; = P(hit_dartboard)*(width*height)/radius^2</strong></p>
+
+<p>The width and the height of the wall and the radius of the dartboard are constants.</p>
+
+<p>Now the only thing we need is knowing P(hit_dartboard). You can recreate the physical experiment with some slaves and a lot of time or you can simulate it with a computer. It's Simulate Time!</p>
+
+
+<h2>The simulation</h2>
+<p>This is a small Java Script widget I've coded to simulate the previous idea. Let's play with it.</p>
+<p>Each thrown is represented by a pixel. Red means a hit to the dartboard an blue a fail (hit the wall).</p>
+<p>See how &pi; aproaches to it's real value 3,141592 when the throws increase.</p>
+<div id="widget_darboard">
+    <canvas id="dartboard_canvas"></canvas>
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <button class="btn" id="dartboard_btn_throw1">1</button>
+            <button class="btn" id="dartboard_btn_throw10">10</button>
+            <button class="btn" id="dartboard_btn_throw100">100</button>
+            <button class="btn" id="dartboard_btn_throw1000">1.000</button>
+            <button class="btn" id="dartboard_btn_throw100000">100.000</button>
+        </div>
+        <div class="btn-group">
+            <button class="btn" id="dartboard_btn_throwcontinuous">Start</button>
+        </div>
+        <div class="btn-group">
+            <button class="btn" id="dartboard_btn_reset">Reset</button>
+        </div>
+    </div>
+    <br/>
+    <div class="well">
+        <h3>Statistics</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="span3">Throws</th>
+                    <th class="span3">Hits</th>
+                    <th class="span3">Calculated &pi;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="span3"><span id="throws"></span></td>
+                    <td class="span3"><span id="hits"></span></td>
+                    <td class="span3"><span id="pi"></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+</div>
+
+<br/>
+<p>PD: thanks <a href="http://irismo.com">Iris</a> for the image. I'm the one on the bottom right corner!</p>
+
+
+  </div>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span2">
+         
+      </div>
+      <div class="span10">
+         
+      </div>
+    </div>
+  </div>
+  <br/>
+  <footer class="text-center">
+    <p>&copy; Samuel M.H. 2013-2022</p>
+  </footer>
+
+  <!-- Le javascript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="/utils/templates/files/jquery/jquery-2.1.4.min.js"></script>
+  <script src="/utils/templates/files/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+  
+<script src="/academic/pi-dartboard/files/smh-pi-dartboard.js"></script>
+<script type="text/javascript">
+window.onload = function(){
+    update_func = function(throws, hits, pi){
+        document.getElementById("throws").innerHTML = throws;
+        document.getElementById("hits").innerHTML = hits;
+        document.getElementById("pi").innerHTML = pi;
+    };
+    var w = new Dartboard();
+    var running = false;
+    
+    function start_stop(){
+        document.getElementById("dartboard_btn_throwcontinuous").innerHTML = running?"Stop":"Start";    
+    }
+    
+    w.init("dartboard_canvas", update_func, "/academic/pi-dartboard/files/dartboard-irismo.jpg");
+    //One round throws
+    document.getElementById("dartboard_btn_throw1").onclick = function(){w.throw_n(1)};
+    document.getElementById("dartboard_btn_throw10").onclick = function(){w.throw_n(10)};
+    document.getElementById("dartboard_btn_throw100").onclick = function(){w.throw_n(100)};
+    document.getElementById("dartboard_btn_throw1000").onclick = function(){w.throw_n(1000)};
+    document.getElementById("dartboard_btn_throw100000").onclick = function(){w.throw_n(100000)};
+    
+    //Reset
+    document.getElementById("dartboard_btn_reset").onclick = function(){
+        running = false;
+        start_stop();
+        w.reset();
+    };
+    
+    //Start-Stop
+    document.getElementById("dartboard_btn_throwcontinuous").onclick = function(){
+        running = !running;
+        start_stop();
+        w.throw_start_stop(3000,1000);
+    };
+    
+};
+</script>
+
+
+</body>
+</html>

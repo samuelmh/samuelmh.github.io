@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Samuel M.H. - Unified Single Sign-On</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Samuel M.H.">
+
+  <!-- Le styles -->
+  <link href="/utils/templates/files/bootstrap-3.3.6/css/theme_flatly_bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+    body,html{
+            height:100%;
+    }
+    .container{
+        min-height:85%;
+    }
+  </style>
+  <link rel="icon" type="image/png" href="/utils/templates/files/favicon-icon.png">
+   
+</head>
+
+
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand">Samuel M.H.</span>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li ><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+          <li><a href="http://blog.samuelmh.com"><span class="glyphicon glyphicon-pencil"></span> Blog</a></li>
+          <li><a href="/projects"><span class="glyphicon glyphicon-heart"></span> Projects</a></li>
+          <li><a href="/communication"><img src="/utils/templates/files/glyphicons-640-group-chat.png"></span> Communication</a></li>
+          <li><a href="/academic"><img src="/utils/templates/files/glyphicons-501-education.png"></span> Academic</a></li>
+          <li ><a href="/contact"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    
+<div class="page-header">
+    <h1>Unified Single Sign-On</h1>
+    <p class="lead">Integración de un metasistema de identidad en la aquitectura eduroam para proporcionar un servicio de inicio de sesión único unificado.</p>
+</div>
+
+<h2>Description</h2>
+<p>Under the title of <strong>"Integration of an identity metasystem into the eduroam architecture to provide an unique unified single sign-on service"</strong> lays my C.S. ending degree project.</p>
+
+<p>It's an extension of the eduroam concept <strong>open your laptop and contect</strong>. The deal was making a proof of contept that allowed an user to log on eduroam, get a virtual identity and use this identity on their wish on all the federated-with-eduroam services so he could authenticate giving their credentials only once, when they logged on eduroam.</p>
+
+The features were given by using this software:
+<ul>
+    <li><strong>Microsoft Cardspace (a.k.a Infocards)</strong> as the virtual identity selector.</li>
+    <li><strong>simpleSAMLphp</strong> as the Identity Provider, Service Provider and Secure Token Service (also thanks to the XMLseclibs).</li>
+    <li><strong>Digital Me</strong> as the client identity selector (the log was very very useful).</li>
+    <li><strong>WPA Supplicant</strong> as the WiFi connector.</li>
+    <li><strong>freeRADIUS</strong> as the radio server to emulate a eduroam access point.</li>
+    <li><strong>Perl</strong> as the glue. (radius module, user connector, etc).</li>
+    <li><strong>Zenity</strong> as de dialog generator.</li>
+    <li><strong>Drupal</strong> to emulate a Relaying Party (a trust-in-eduroam service).</li>
+</ul>
+
+<h2>Contributions</h2>
+<p>The result of so much work was the following documents:</p>
+<ul>
+    <li>The book itself. You can download <a href="/academic/usso/files/SMH-USSO-TFC.pdf">here</a> or at <a href="http://www.rediris.es/ptyoc/res/dl23.html.es">RedIRIS</a>.</li>
+    <li>The <a href="/academic/usso/files/SMH-USSO-SLIDES.pdf">slides</a> of the presentation.</li>
+    <li>The <a href="http://simplesamlphp.org/docs/stable/InfoCard:usage">simpleSAMLphp infocard module</a>.</li>
+    <li>More software used on the prototype: the Perl connector, freeRADIUS module, WPA Supplicant module, etc. Available at <a href="http://www.rediris.es/ptyoc/res/dl23.html.es">RedIRIS</a>.</li>
+</ul>
+
+<h2>Appereances</h2>
+<dl>
+    <dt>2010 April - Boletín de RedIRIS Nº 88-89 </dt>
+    <dd>Acknowledged at <a href="http://www.rediris.es/difusion/publicaciones/boletin/88-89/">"Propuesta de arquitectura de uSSO en eduroam empleando tecnología de Infocard."</a>
+        <ul>
+            <li><a href="http://www.rediris.es/difusion/publicaciones/boletin/88-89/Ponencia1.C.pdf">Document.</a></li>
+        </ul>
+    </dd>
+
+    <br/>
+    <dt>2009 June 9 - TNC2009, Málaga (Spain)</dt>
+    <dd>
+        <a href="http://tnc2009.terena.org/schedule/presentations/show9a7d.html?pres_id=44">An Infocard-based proposal for unified single sing on.</a>
+        <ul>
+            <li><a href="http://tnc2009.terena.org/core/getfile8006.ppt?file_id=351">Slides.</a></li>
+            <li><a href="http://tnc2009.terena.org/media/archive9219.html?stream=4C">Video</a>, from 61:40.</li>
+        </ul>
+    </dd>
+
+    <br/>
+    <dt>2009 April 24 - Feide RnD</dt>
+    <dd><a href="https://rnd.feide.no/2009/04/24/infocard_meets_eduroam/">Release of the first prototype.</a></dd>
+
+    <br/>
+    <dt>2008 December 2 - 18th TF-Mobility Meeting, Utrecht (The Netherlands)</dt>
+    <dd>
+        <a href="http://www.terena.org/activities/tf-mobility/meetings/18/">InfoCard and eduroam - Enrique de la Hoz (University of Alcala) (30 m).</a>
+        <ul>
+            <li><a href="http://www.terena.org/activities/tf-mobility/meetings/18/slides/EH-Infocard.ppt">Slides</a></li>
+        </ul>
+    </dd>
+</dl>
+
+
+
+<h2>Video example</h2>
+This is a 1280x800 px video that shows the prototype working. The key steps are:
+<ol>
+    <li>Launch the RADIUS server with the custom Perl authentication module.</li>
+    <li>Launch the client-side Perl connector.</li>
+    <li>The connector opens the identity selector.</li>
+    <li>The user selects the self-issued infocard that will be used as the token when generating their virtual identity.</li>
+    <li>The connector ask for the user's eduroam credentials (username and password). WiFi card driver is not relevant.</li>
+    <li>Authentication is done and the infocard id is passed to the Radius server.</li>
+    <li>A branded infocard built upon the self issued one is returned to the user (as a one-time URL) and is loaded into the identity selector (the connector is still running).</li>
+    <li>Now the user can achieve a SSO login against the IDP. The first attemp is done wrong on purpose.</li>
+    <li>The connection is also logged on a PostgreSQL database. Useful  when setting a TTL to the card.</li>
+</ol>
+<div class="row">
+<div class="well span5 offset1">
+    <buton id="btn-play" class="btn span1 "><i class="icon-play"></i> <span>Play</span></buton>
+    <buton id="btn-restart" class="btn offset1"><i class="icon-repeat"></i> Restart</buton>
+</div>
+</div>
+
+<div id="usso-video"></div>
+<br/>
+
+<p>You can also see this video at <a href="http://it.aut.uah.es/enrique/research/demo.html">professor EDLH's UAH page.</a></p>
+
+
+  </div>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span2">
+         
+      </div>
+      <div class="span10">
+         
+      </div>
+    </div>
+  </div>
+  <br/>
+  <footer class="text-center">
+    <p>&copy; Samuel M.H. 2013-2022</p>
+  </footer>
+
+  <!-- Le javascript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="/utils/templates/files/jquery/jquery-2.1.4.min.js"></script>
+  <script src="/utils/templates/files/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+  
+<script type="text/javascript">
+
+    //Load video on demand, save bandwidth
+    function loadVideo(){
+        var video_container = $("#usso-video")[0];
+        if (video_container.innerHTML==""){
+            video_container.innerHTML = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="1280" height="800" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0"><param name="movie" value="/academic/usso/files/SMH-USSO-VIDEO.swf">    <embed swliveconnect="true" id="usso-flash" play="false" loop="false" src="/academic/usso/files/SMH-USSO-VIDEO.swf" width="1280" height="800" quality="high" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed></object>';
+        }
+    }
+
+    $("#btn-restart").on("click",
+        function(){
+            loadVideo();
+            $("#usso-flash")[0].Rewind();
+            $("#usso-flash")[0].Play();
+                $("#btn-play span").text("Pause");
+            $("#btn-play i").removeClass("icon-play").addClass("icon-pause");
+        }
+    );
+
+    $("#btn-play").on("click",
+        function(){
+            loadVideo();
+            if($("#btn-play i").hasClass("icon-play")){
+                $("#usso-flash")[0].Play();
+                $("#btn-play span").text("Pause");
+                $("#btn-play i").removeClass("icon-play").addClass("icon-pause");
+            } else {
+                $("#usso-flash")[0].StopPlay();
+                $("#btn-play span").text("Play");
+                $("#btn-play i").removeClass("icon-pause").addClass("icon-play");
+            }
+        }
+    );
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Samuel M.H. - A sudoku solver</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Samuel M.H.">
+
+  <!-- Le styles -->
+  <link href="/utils/templates/files/bootstrap-3.3.6/css/theme_flatly_bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+    body,html{
+            height:100%;
+    }
+    .container{
+        min-height:85%;
+    }
+  </style>
+  <link rel="icon" type="image/png" href="/utils/templates/files/favicon-icon.png">
+  
+<style type="text/css">
+  table {
+    border: 1px solid gray;
+  }
+</style>
+
+</head>
+
+
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand">Samuel M.H.</span>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li ><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+          <li><a href="http://blog.samuelmh.com"><span class="glyphicon glyphicon-pencil"></span> Blog</a></li>
+          <li><a href="/projects"><span class="glyphicon glyphicon-heart"></span> Projects</a></li>
+          <li><a href="/communication"><img src="/utils/templates/files/glyphicons-640-group-chat.png"></span> Communication</a></li>
+          <li><a href="/academic"><img src="/utils/templates/files/glyphicons-501-education.png"></span> Academic</a></li>
+          <li ><a href="/contact"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    
+<div class="page-header">
+    <h1>Sudoku solver</h1>
+    <p class="lead">A JavaScript sudoku solver.</p>
+</div>
+
+<h2>The idea</h2>
+<p>The purpose of this project is to implement a sudoku solver able to run in a web browser.</p>
+<p>There will be to parts:
+<ol>
+  <li>The sudoku solver engine.</li>
+  <li>A pretty user interface which takes the problem and shows the solution.</li>
+</ol>
+The two parts will comunicate each other in order to share a sudoku representation.
+</p>
+
+
+<h2>The view</h2>
+<p>
+Provides the following functions:
+  <ul>
+    <li><strong>view_build()</strong>: builds the HTML sudoku object.</li>
+    <li><strong>view_get()->data</strong>: gets the current HTML sudoku data in a format suitable for the solver.</li>
+    <li><strong>view_set(data)</strong>: sets the HTML sudoku object with the provided data.</li>
+  </ul>
+</p>
+
+
+<h2>The solver</h2>
+<p>
+The solver is the function that given the problem, tries to find a solution (function <strong>sudoku_solve(data)->data</strong>).
+</p>
+<p>
+The <strong>data</strong> variable is supposed to hold a sudoku representation, which is an array of 81 integer positions. Each position ranges from 0 (unknown value) to [1-9] (a solution).
+</p>
+<p>
+The solving algorithm performs a  <a href="http://en.wikipedia.org/wiki/Depth-first_search">Depth First Search</a>, checking for every 0 value assignation that no restriction is violated.
+The three restrictons to check for every value assignment are that there are no duplicated values (but zeroes) in the element:
+<ol>
+  <li>Colum.</li>
+  <li>Row.</li>
+  <li>Minitable (each 3x3 none overlapping tables the sudoku can be split).</li>
+</ol>
+</p>
+In order to map the later number sets into 9-length arrays, the <strong>offset_XXX(elem_index, offset)->index</strong> are coded.
+
+
+<h2>The code</h2>
+<p>The library code can be found <a href="/academic/js_sudoku_solver/files/smh_sudoku.js" target="_blank">here</a>.</p> 
+<p>It is implemented as the JavaScript-pattern module revealing. The variable <strong>smh_sudoku</strong> can be instantiated with the id of the div element which will contain the sudoku HTLM element and the following methods are exposed:
+<ul>
+  <li><strong>solve()</strong>: tries to solve the instantiaded sudoku.</li>
+  <li><strong>reset()</strong>: cleans the instantiated sudoku view.</li>
+</ul></p>
+A good example of the usage can be found in the source code of this page (press CTRL+u to see it).
+</p>
+
+<h2>Weak points</h2>
+<p>The program is meant to be able to solve "solvable" sudokus, that is, if you provide a sudoku which has no solution, it is likely to hang your web browser. Nevertheless, the function <strong>check_solvable(data)</strong> performs a naïve comprobation of the user input (no basic restrictions are violated). But, disappointingly it will not recognice a malicious user input (i.e. an unsolvable sudoku with transitive violations).
+</p>
+<p><button id="malicious_button" type="button" class="btn btn-link">Click here</button> to display an example of a malicious input.
+</p>
+<div id="malicious_container">
+    <h3>Example of a malicious input</h3>
+    <div id="malicious_sudoku"></div>
+    <br/>
+    <button id="malicious_copy" type="button" class="btn btn-danger btn-sm">Copy this problem to the solver</button>
+    <br/><br/>
+    <p>This one of the worst scenarios the algorithm can face. An unsolvable problem since one of the three variables can not be assigned without breaking a restriction.
+    </p>
+    
+    <p>This is the problem formulation, with rules and variable domains:
+    <div class="well well-sm">
+      X={1} &ne; Y={1,2} &ne; Z={2}
+    </div>
+    No possible assignation matches the rules.
+    </p>
+    
+    <p>The initial <strong>check_solvable(data)</strong> function cannot detect this kind of problems because they are  transitive dependencies, so the only way to demonstrate the incorrectness of the problem is actually trying all the possible solutions and discard all of them. This is computationally expensive for a DFS algorithm. I encourage you to try this problem taking in mind it's likely your web browser will freeze.</p>
+</div>
+    
+<h2>The thing</h2>
+<p>Here is the widget you are willing to play with!.</p>
+<br/>
+<div class="row">
+    <div id="sudoku" class="col-xs-12 col-md-5"></div>
+</div>
+<br/>
+<div class="row">
+    <button id="button_reset" class="btn btn-default col-xs-offset-1" type="button">Reset</button>
+    <button id="button_solve" class="btn btn-primary col-xs-offset-1" type="button">Solve</button>
+</div>
+
+  </div>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span2">
+         
+      </div>
+      <div class="span10">
+         
+      </div>
+    </div>
+  </div>
+  <br/>
+  <footer class="text-center">
+    <p>&copy; Samuel M.H. 2013-2022</p>
+  </footer>
+
+  <!-- Le javascript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="/utils/templates/files/jquery/jquery-2.1.4.min.js"></script>
+  <script src="/utils/templates/files/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+  
+<script src="/academic/js_sudoku_solver/files/smh_sudoku.js"></script>
+<script>
+    //Sudoku widget
+    var sudoku = smh_sudoku('sudoku');
+    document.getElementById('button_solve').onclick = function(){
+        var msg = sudoku.solve();
+        if (msg){
+            alert(msg);
+        }
+    }
+    document.getElementById('button_reset').onclick = sudoku.reset;
+    //style
+    $('.sudoku-input').addClass("form-control").addClass("input-sm");
+    $('.sudoku-input').addClass("form-control").addClass("input-md");
+</script>
+
+<script>
+    //Malicious example
+    $('#malicious_container').hide();    
+    var sudoku_example = smh_sudoku('malicious_sudoku');
+    var malicious_sudoku = ["X",2,3,4,5,6,7,8,9,9," "," "," "," "," "," "," "," ",8," "," "," "," "," "," "," "," ",7," "," "," "," "," "," "," "," ",6," "," "," "," "," "," "," "," ",5," "," "," "," "," "," "," "," ",4," "," "," "," "," "," "," "," ",3," "," "," "," "," "," "," ",1,"Y",9,8,7,6,5,4,3,"Z"];
+    sudoku_example.set(malicious_sudoku);    
+    $('#malicious_button').click(
+        function (){
+            $('#malicious_container').toggle(1000);
+        }
+    );
+    $('#malicious_copy').click(
+        function (){
+            sudoku.set(malicious_sudoku);
+        }
+    );
+    
+        
+        
+    //style
+    $('.malicious_sudoku-input').addClass("form-control").addClass("input-sm").attr('disabled',true);    
+</script>
+
+
+
+</body>
+</html>

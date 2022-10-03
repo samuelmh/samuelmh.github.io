@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Samuel M.H. - django-smh_redirections</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Samuel M.H.">
+
+  <!-- Le styles -->
+  <link href="/utils/templates/files/bootstrap-3.3.6/css/theme_flatly_bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+    body,html{
+            height:100%;
+    }
+    .container{
+        min-height:85%;
+    }
+  </style>
+  <link rel="icon" type="image/png" href="/utils/templates/files/favicon-icon.png">
+   
+</head>
+
+
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand">Samuel M.H.</span>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li ><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+          <li><a href="http://blog.samuelmh.com"><span class="glyphicon glyphicon-pencil"></span> Blog</a></li>
+          <li><a href="/projects"><span class="glyphicon glyphicon-heart"></span> Projects</a></li>
+          <li><a href="/communication"><img src="/utils/templates/files/glyphicons-640-group-chat.png"></span> Communication</a></li>
+          <li><a href="/academic"><img src="/utils/templates/files/glyphicons-501-education.png"></span> Academic</a></li>
+          <li ><a href="/contact"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    
+<div class="page-header">
+    <h1>django-smh_redirections</h1>
+    <p class="lead">Django app to handle HTTP redirections.</p>
+</div>
+
+<h2>Description</h2>
+<p>A registered user can redirect an URL under their domain (identified by an alias) in the form <mark>http://&lt;path to redirections&gt;/&lt;user&gt;/&lt;alias&gt;</mark> to the desired target URL.</p>
+
+<h2>Repository</h2>
+<pre>
+ <img src="/utils/templates/files/github-icon.png" />    <a href="https://github.com/samuelmh/django-smh_redirections">https://github.com/samuelmh/django-smh_redirections</a>
+</pre>
+
+
+<h2>Use cases</h2>
+
+<h3>Shorten/remember URLs  </h3>
+  <p>The simplest way to use the service is as a mean to shorten URLs like <a href="https://goo.gl/">https://goo.gl/</a> or <a href="https://bit.ly/">https://bit.ly//</a>. The user asigns the target URL to an alias (this binding won't be modified).</p>
+  <p> For example: http://redirections/my_user/school_function could redirect to some youtube video. And the former link is easier to remember.</p>  
+
+<h3>Web pages locator</h3>
+  <p>This is a case where the destination URL can vary over the time while the alias is inmutable. It is useful as a locator for dynamic IP devices (i.e. locate a home web server).</p>  
+
+
+<hr/>
+    
+<h2>Functionality</h2>
+
+  <h3>Redirection anatomy</h3>
+    <p>These are the properties of a redirection:</p>
+    <ul>
+        <li><strong>Alias:</strong> name given to the redirection by the user.</li>
+        <li><strong>URL:</strong> target of the redirection. Where a user will be sent when visiting <mark>http://&lt;path to redirections&gt;/&lt;user&gt;/&lt;alias&gt;</mark>.</li>
+        <li><strong>Public:</strong> if a redirection is public, anybody can visit it. If not, there won't be a proper redirection URL (not active) but it will be listed in the web interface.</li>
+        <li><strong>Password:</strong> if set, the URL of a redirection can be modified using a POST call. If not, the URL is inmutable.</li>
+        <li><strong>Last refresh:</strong> last time the redirection was modified.</li>
+        <li><strong>Visits:</strong> number of times the redirection has been visited since 'Last refresh'.</li>
+    </ul>
+  
+
+  <h3>Web page interface </h3>
+    <p>Redirections are fully manageable through the web interface.</p>
+
+    <h4>Add/modify a redirection</h4>
+    <p>The <strong>Add/modify redirection</strong> widget allows the user to create or modify a redirection. The alias and URL fields are mandatory. It is possible to go from the modify mode to the add one by pressing the 'Cancel' button.</p>
+    
+    
+    <h4>List redirections</h4>
+    <p>The <strong>List</strong> section shows the user's redirections.</p>
+    <p>Actions:</p>
+    <ul>
+        <li><strong>Order redirections:</strong> it is possible to sort the list by any field by clicking in a column header (alias, url, etc). The first time, the redirections will be sort by ascending order and the next times the order will be reversed. </li>
+        <li><strong>Refresh:</strong> clicking the <span class="glyphicon glyphicon-refresh"></span> icon will refresh the table.</li>
+        <li><strong>Modify:</strong> clicking the <span class="glyphicon glyphicon-cog"></span> icon will open a form with the redirection for modification.</li>
+        <li><strong>Delete:</strong> clicking the <span class="glyphicon glyphicon-trash"></span> icon will delete the redirection.</li>
+    </ul>
+    
+
+  <h3>Other</h3>
+    <p>This actions can be performed by any user, even if they are not registered in the system.</p>
+  
+    <h4>Visit a redirection</h4>
+    <p>When a user visits <mark>http://&lt;path to redirections&gt;/&lt;user&gt;/&lt;alias&gt;</mark>, if the redirection is public, they will be sent to the URL the user <mark>&lt;user&gt;</mark> has given to the alias <mark>&lt;alias&gt;</mark>. The 'Visits' field will be increased by 1.</p>
+    
+    <h4>Refresh a redirection</h4>
+    <p>If a redirection has a password, it is possible to modify the 'URL' field with a POST call to <mark>http://&lt;path to redirections&gt;/&lt;user&gt;/&lt;alias&gt;</mark> sending the params <mark>password=&lt;configured password&gt;</mark> and <mark>url=&lt;new url&gt;</mark>.</p>
+    <p>The redirection fields 'Visits' will be set to 0 and 'Last refresh' to the time the redirection was modified.</p>
+    <p>If no POST param <mark>url</mark> is provided, the 'URL' field will be set to the IP address of the request.</p>
+
+
+<hr/>
+  
+<h2>F.A.Q.</h2>
+<ol>
+  <li>
+    <p><strong>Where can I find the code?</strong></p>
+    <p>This is free software and the original code can be found at <a href="https://github.com/samuelmh/django-smh_redirections" target="_blank">https://github.com/samuelmh/django-smh_redirections</a></p>
+  </li>
+  
+  <li>
+    <p><strong>How can I made a machine to update a redirection easily?</strong></p>
+    <p>The easiest way is to force the machine to send a HTTP POST call to <mark>http://&lt;path to redirections&gt;/&lt;user&gt;/&lt;alias&gt;</mark>. With the password as a param.</p>
+    <p>In GNU/Linux this can be automated with the <strong>curl</strong> command (for the HTTP call) and the <strong>cron</strong> daemon (calls curl over the time).</p>
+    
+    <p class="h4">EXAMPLE:</p>
+    <p>Let say your username is 'john', you have a web server installed in your Raspberry Pi at your home but you can't access from outside your home network because you never remember (or even know) the router IP address. Let say you also want to update the redirection every 10 minutes so in case the router resets and change its IP you can access your Raspberry Pi in no more than 10 minutes.<br/>
+    Here the goal is to access your machine just by visiting <mark>http://&lt;path to redirections&gt;/john/raspberry </mark>
+    These are the steps to follow:</p>
+    <ul>
+        <li>Create a redirection in the web interface (i.e. alias=raspberry, url=http://dummy.test), remember to set a password (i.e. password=MyP455W0rD).</li>
+        <li>From a computer, execute the following line (change &lt;path to redirections&gt; for a valid webpage). <br/>
+          <mark>$ curl --data "password=MyP455W0rD" http://&lt;path to redirections&gt;/john/raspberry</mark>
+        </li>
+        <li>Refresh the table in the web interface. If everything is correct, you will see the URL of the 'raspberry' redirection has changed. The curl command is correct.</li>
+        <li>In the raspberry Pi, execute <mark>$ sudo crontab -e</mark> and add the followig line at the end of the file.<br/>
+          <mark>0-59/10 * * * * curl --data "password=MyP455W0rD" http://&lt;path to redirections&gt;/john/raspberry</mark>
+        </li>        
+        <li>Wait 10 minutes and refresh the table in the web interface. If everything is correct, you will see the URL for the 'raspberry' redirection has changed. You have finished the configuration.</li>
+    </ul>
+    <p>In this example, the POST param 'url' is not provided because the raspberry doesn't know which is the public IP of the network, so it is better to delegate the guess to the redirections platform. If we wanted to know our public IP whe should ask some external service like <a href="http://www.whatsmyip.org/">http://www.whatsmyip.org/</a></p>
+  </li>
+  
+  <li>
+    <p><strong>I have completed the previous tutorial successfully but I cannot access my machine.</strong></p>
+    <p>Do you have any HTTP service running in your machine? Did you open the needed ports in your router? Are you behind a proxy? Do you even have an idea of what you are doing?</p>
+  </li>
+</ol>
+  
+
+<hr/>
+
+<h2>Technical issues</h2>
+  <h3>REST API</h3>
+    <p>The base URL for the REST API is <mark>http://&lt;path to redirections&gt;/api/v1/</p>
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">List redirections</h4>
+      </div>
+      <div class="panel-body">
+        <p><strong>Path:</strong> /&lt;user&gt;</p>
+        <p><strong>Method:</strong> GET</p>
+        <p><strong>Auth:</strong> YES</p>
+        <p><strong>IN:</strong> NO params</p>
+        <p><strong>OUT:</strong> JSON {redirecions: [{alias:str, url:str, password:str, prints:int, public:bool, last_refresh: int(UTC millis) }] }<p>
+        <p><strong>Description:</strong></p>
+        <p>List all the &lt;user&gt; redirections with all the fields.</p>
+      </div>
+    </div>
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">List public redirections</h4>
+      </div>
+      <div class="panel-body">
+        <p><strong>Path:</strong> /&lt;user&gt;</p>
+        <p><strong>Method:</strong> GET</p>
+        <p><strong>Auth:</strong> NO</p>
+        <p><strong>IN:</strong> NO params</p>
+        <p><strong>OUT:</strong> JSON {redirecions: [{alias:str, url:str}] }<p>
+        <p><strong>Description:</strong></p>
+        <p>List only the public &lt;user&gt; redirections with the user and alias fields.</p>
+      </div>
+    </div>
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">Delete a redirection</h4>
+      </div>
+      <div class="panel-body"> 
+        <p><strong>Path:</strong> /&lt;user&gt;/&lt;alias&gt;</p>
+        <p><strong>Method:</strong> DELETE</p>
+        <p><strong>Auth:</strong> YES</p>
+        <p><strong>IN:</strong> NO params</p>
+        <p><strong>OUT:</strong> JSON {msg: str}<p>
+        <p><strong>Description:</strong></p>
+        <p>Delete a redirection. The output is a message with the result of the operation.</p>
+      </div>
+    </div>    
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">Add/modify a redirection</h4>
+      </div>
+      <div class="panel-body">           
+        <p><strong>Path:</strong> /&lt;user&gt;/&lt;alias&gt;</p>
+        <p><strong>Method:</strong> PUT</p>
+        <p><strong>Auth:</strong> YES</p>
+        <p><strong>IN:</strong>JSON</p>
+        <p>{url:str, public:bool, password:str}</p>
+        <p><strong>OUT:</strong> JSON {msg: str}<p>
+        <p><strong>Description:</strong></p>
+        <p>Add or modify (if exists) a redirection. The output is a message with the result of the operation.</p>
+      </div>
+    </div>
+    
+    
+  
+  <h3>Authentication</h3>
+  <p>The authentication functionality is provided by the <a href="django-smh_jwt" target="_blank">django-smh_jwt</a> app. Which decorates the required views (REST API) and expects a JWT token in the Authentication header.</p>
+  
+    
+  <h3>Requirements</h3>
+    <ul>
+        <li><strong>Django 1.7:</strong> Python web framework.</li>
+        <li><strong>smh_jwt:</strong> Json Web Token authentication used by the API.</li>
+        <li><strong>AngularJS:</strong> used by the web application.</li>
+        <li><strong>JQuery:</strong>    used by the web application.</li>
+        <li><strong>Bootstrap:</strong> used by the web application.</li>
+    </ul>   
+ 
+  <h3>Web page interface </h3>
+    <p>This Django app provides a sample template with a rich web application written in Angular. This webapp uses the REST API to perform the actions.</p>
+
+
+
+  </div>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span2">
+         
+      </div>
+      <div class="span10">
+         
+      </div>
+    </div>
+  </div>
+  <br/>
+  <footer class="text-center">
+    <p>&copy; Samuel M.H. 2013-2022</p>
+  </footer>
+
+  <!-- Le javascript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="/utils/templates/files/jquery/jquery-2.1.4.min.js"></script>
+  <script src="/utils/templates/files/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+   
+
+</body>
+</html>
